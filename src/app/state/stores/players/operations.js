@@ -5,8 +5,18 @@ import { requestAllPlayers, receiveAllPlayers } from './actions';
 const loadAllPlayers = () => (dispatch) => {
   dispatch(requestAllPlayers());
 
-  axios.get('./data/player-ratings.json').then(response => {
-    dispatch(receiveAllPlayers(response.data.docs));
+  const allRequests = [
+    axios.get('./data/madden-ratings.json'),
+    axios.get('./data/madden-ratings-1000.json'),
+    axios.get('./data/madden-ratings-2000.json')
+  ];
+
+  axios.all(allRequests).then(responses => {
+    const allPlayers = responses.reduce((all, response) => {
+      return all.concat(response.data.docs);
+    }, []);
+
+    dispatch(receiveAllPlayers(allPlayers));
   });
 };
 
