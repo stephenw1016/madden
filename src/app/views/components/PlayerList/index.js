@@ -1,20 +1,21 @@
-import React from 'react';
+// @flow
+import * as React from 'react';
 import { connect } from 'react-redux';
 
-import { playerSelectors } from "../../../state/stores/players";
+import { playerSelectors } from '../../../state/stores/players';
 
-class PlayerList extends React.Component {
-  render() {
-    return (
-      <ul>
-        {
-          this.props.players.map(player => (
-            <li key={player.primaryKey}>{`${player.firstName} ${player.lastName}`}</li>
-          ))
-        }
-      </ul>
-    )
-  }
+type Props = {
+  players: Object
+};
+
+function PlayerList(props: Props) {
+  return (
+    <ul>
+      {props.players.map((player) => (
+        <li key={player.primaryKey}>{`${player.firstName} ${player.lastName}`}</li>
+      ))}
+    </ul>
+  );
 }
 
 const mapStateToProps = (state) => {

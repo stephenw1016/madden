@@ -1,6 +1,8 @@
 import { createSelector } from 'reselect';
 
-const allPlayersSelector = state => state.playerState.allPlayers;
+const allPlayersSelector = state => {
+  return state.playerState.allPlayers
+};
 
 export const listSelector = createSelector(
   allPlayersSelector,
